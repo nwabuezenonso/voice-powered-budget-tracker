@@ -1,28 +1,27 @@
+// import react
 import React, { useContext } from 'react'
+// import material UI
 import { List as MUIList, ListItem, ListItemAvatar, ListItemText, Avatar, ListItemSecondaryAction, IconButton, Slide} from '@material-ui/core'
 import { Delete, MoneyOff } from '@material-ui/icons'
 
+// importing context
 import { ExpenseTrackerContext } from '../../../context/context'
 
 // importing styles
 import useStyles from './styles'
 
+// sharing the transaction state
 const List = () => {
-    const { deleteTransaction } = useContext(ExpenseTrackerContext)
+    const { deleteTransaction, transactions } = useContext(ExpenseTrackerContext)
     // calling the created class component
     const classes = useStyles()
-    
     // creating a transaction array to handle transaction
-    const transaction = [
-        { id:1, type: 'Income', category: 'Salary', amount:50, date: "wed Dec 16"},
-        { id:2, type: 'Expense', category: 'Pets', amount:50, date: "wed Dec 17"},
-        { id:3, type: 'Income', category: 'Business', amount:150, date: "wed Dec 18"}
-    ];
+
     return (
     <div>
         <MUIList dense={false} className={classes.list}>
             {/* we parenthesis for instance return  */}
-            { transaction.map((transaction) => (
+            { transactions.map((transaction) => (
                 // map the transaction array
                 <Slide direction='down' in mountOnEnter unmountOnExit key={transaction.id}>
                     <ListItem>
@@ -33,7 +32,7 @@ const List = () => {
                         </ListItemAvatar>
                         <ListItemText primary={transaction.category} secondary={`$${transaction.amount} - ${transaction.date}`}/>
                         <ListItemSecondaryAction>
-                            <IconButton edge="end" aria-label="delete" >
+                            <IconButton edge="end" aria-label="delete" onClick={() => deleteTransaction(transaction.id)} >
                                 <Delete />
                             </IconButton>
                         </ListItemSecondaryAction>
