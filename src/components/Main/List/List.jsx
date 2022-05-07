@@ -1,11 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { List as MUIList, ListItem, ListItemAvatar, ListItemText, Avatar, ListItemSecondaryAction, IconButton, Slide} from '@material-ui/core'
 import { Delete, MoneyOff } from '@material-ui/icons'
+
+import { ExpenseTrackerContext } from '../../../context/context'
 
 // importing styles
 import useStyles from './styles'
 
 const List = () => {
+    const { deleteTransaction } = useContext(ExpenseTrackerContext)
     // calling the created class component
     const classes = useStyles()
     
@@ -30,7 +33,7 @@ const List = () => {
                         </ListItemAvatar>
                         <ListItemText primary={transaction.category} secondary={`$${transaction.amount} - ${transaction.date}`}/>
                         <ListItemSecondaryAction>
-                            <IconButton edge="end" aria-label="delete" onclick="">
+                            <IconButton edge="end" aria-label="delete" >
                                 <Delete />
                             </IconButton>
                         </ListItemSecondaryAction>
