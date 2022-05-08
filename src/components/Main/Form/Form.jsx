@@ -1,5 +1,5 @@
 import React, { useState, useContext} from 'react'
-import { TextField, Typography, Grid, Button, FormControl, InputLabel, Select, MenuItem, Menu } from '@material-ui/core';
+import { TextField, Typography, Grid, Button, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 // import expense tracker context
 import { ExpenseTrackerContext } from '../../../context/context';
 // import uuid for unique id
@@ -51,10 +51,10 @@ const Form = () => {
         </Grid>
         <Grid item xs={6}>
             <FormControl fullWidth>
-                    <InputLabel>Category</InputLabel>
-                    <Select value={formData.category} onChange= {(e)=> setFormData({...formData, category: e.target.value })}>
-                       { selectedCategories .map((c) => <MenuItem key={c.type} value={c.type} >{c.type}</MenuItem>)}
-                    </Select>
+                <InputLabel>Category</InputLabel>
+                <Select value={formData.category} onChange= {(e)=> setFormData({...formData, category: e.target.value })}>
+                    { selectedCategories.map((c) => <MenuItem key={c.type} value={c.type} >{c.type}</MenuItem>)}
+                </Select>
             </FormControl>
         </Grid>
         <Grid item xs={6}>
