@@ -17,33 +17,33 @@ const useTransactions = (title) => {
   const transactionsPerType = transactions.filter((t) => t.type === title);
 
   // reduce is used to sum up the number in an array( accumulator  = accumulator + current value) and inital value in the specific type
-  const total =transactionsPerType.reduce((acc, currVal) => acc += currVal.amount, 0)
+  const total = transactionsPerType.reduce((acc, currVal) => acc += currVal.amount, 0)
   
-   //   CALCULATING TOTAL FOR EACH CATEGORY
+  //   CALCULATING TOTAL FOR EACH CATEGORY
   // condtional statement for categories
   const categories = title === 'Income' ? incomeCategories : expenseCategories
 
-    // specifying  a function for each transaction
-    transactionsPerType.forEach((t) => {
-        // find the type
-        const category = categories.find((c) => c.type === t.category)
+  // specifying  a function for each transaction
+  transactionsPerType.forEach((t) => {
+    // find the type
+    const category = categories.find((c) => c.type === t.category)
 
-        // add up the value of the current amount with the transaction amount
-        if(category) category.amount += t.amount
-    });
+    // add up the value of the current amount with the transaction amount
+    if(category) category.amount += t.amount
+  });
 
-    // filter out the category greater than zero
-    const filteredCategories = categories.filter((c) => c.amount > 0)
+  // filter out the category greater than zero
+  const filteredCategories = categories.filter((c) => c.amount > 0)
 
-    //  creating our charts
-    const chartData = {
-        datasets: [{
-          data: filteredCategories.map((c) => c.amount),
-          backgroundColor: filteredCategories.map((c) => c.color),
-        }],
-        labels: filteredCategories.map((c) => c.type),
-    };
-    return {  total, chartData}
+  //  creating our charts
+  const chartData = {
+    datasets: [{
+      data: filteredCategories.map((c) => c.amount),
+      backgroundColor: filteredCategories.map((c) => c.color),
+    }],
+    labels: filteredCategories.map((c) => c.type),
+  };
+  return { total, chartData}
 };
 
 export default useTransactions;

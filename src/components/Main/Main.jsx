@@ -1,5 +1,5 @@
 // import react
-import React from 'react'
+import React, {useContext} from 'react'
 // import card material UI
 import { Card, CardHeader, CardContent, Typography, Grid, Divider } from '@material-ui/core';
 // importing styles
@@ -8,15 +8,17 @@ import useStyles from './styles';
 import Form from './Form/Form';
 // importing list from list
 import List from './List/List';
+import { ExpenseTrackerContext } from '../../context/context';
 
 // functional component with called function and material UI cards
 const Main = () => {
     const classes = useStyles()
+    const { balance } = useContext(ExpenseTrackerContext)
   return (
     <Card className={classes.root}>
         <CardHeader title='Expense' subheader='Powered by Speechly'/>
         <CardContent>
-            <Typography align='center' variant='h5'>Total Balance $100</Typography>
+            <Typography align='center' variant='h5'>Total Balance ${balance}</Typography>
             <Typography variant='subtitle1' style={{ lineHeight: '1.5em', marginTop: '20px'}}>
                 Try saying Add income for $100 in category Salary
             </Typography>
