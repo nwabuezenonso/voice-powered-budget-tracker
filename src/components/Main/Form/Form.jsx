@@ -87,7 +87,7 @@ const Form = () => {
                 createTransaction()
             }
         }
-    }, [segment])
+    }, [segment, createTransaction, formData])
 
     // variable for selected categories
     const selectedCategories = formData.type === 'Income' ? incomeCategories : expenseCategories 
