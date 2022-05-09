@@ -10,6 +10,7 @@ import formatDate from '../../../utils/formatDate';
 import useStyles from './styles';
 // importing categories
 import { incomeCategories, expenseCategories } from '../../../constants/categories';
+import CustomizedSnackbar from '../../Snackbar/Snackbar';
 
 const initialState = {
     amount: '',
@@ -26,11 +27,15 @@ const Form = () => {
     const { addTransaction } = useContext( ExpenseTrackerContext );
     // function from speechly api
     const { segment } = useSpeechContext();
+    //  state for snack bar
+    const [open, setOpen ] = useState(false)
 
     const createTransaction = () =>{
         // error handling for not creating the transaction
         if(Number.isNaN(Number(formData.amount)) || !formData.date.includes('-')) return;
         const transaction = {...formData, amount: Number(formData.amount), id: uuidv4()}
+
+        setOpen(true);
         // call the addtransaction
         addTransaction(transaction);
         // resetting the state field
@@ -88,6 +93,7 @@ const Form = () => {
     const selectedCategories = formData.type === 'Income' ? incomeCategories : expenseCategories 
   return (
     <Grid container spacing={2}>
+        <CustomizedSnackbar open={open} setOpen={setOpen} />
         <Grid item xs={12}>
             <Typography align='center' variant='subtitle2' gutterBottom>
                 { segment && segment.words.map((w) => w.value).join(" ")}
