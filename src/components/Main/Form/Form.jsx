@@ -28,6 +28,8 @@ const Form = () => {
     const { segment } = useSpeechContext();
 
     const createTransaction = () =>{
+        // error handling for not creating the transaction
+        if(Number.isNaN(Number(formData.amount)) || !formData.date.includes('-')) return;
         const transaction = {...formData, amount: Number(formData.amount), id: uuidv4()}
         // call the addtransaction
         addTransaction(transaction);
@@ -37,6 +39,8 @@ const Form = () => {
 
     useEffect(() => {
         if (segment){
+            // read our intents
+            //  segment isFinal occur when users done talking
             if ( segment.intent.intent === 'add_expense'){
                 setFormData({...formData, type: 'Expense'});
             } else if (segment.intent.intent === 'add_income'){
@@ -58,7 +62,8 @@ const Form = () => {
                         setFormData({ ...formData, amount: e.value});
                         break;
                     case 'category':
-                        if (incomeCategories.map((ic) => ic.type) .includes(category)){
+                        // only true if the type is included in that category
+                        if (incomeCategories.map((ic) => ic.type).includes(category)){
                             setFormData({ ...formData, type: 'Income', category});
                         }else if(expenseCategories.map((ic)=> ic.type).includes(category)){
                             setFormData({...formData, type: 'Expense', category});
@@ -73,6 +78,7 @@ const Form = () => {
                 }
             })
 
+            //  segment.isFinal occurs when the user is done talking
             if(segment.isFinal && formData.amount && formData.category && formData.type && formData.date){
                 createTransaction()
             }

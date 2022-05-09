@@ -23,8 +23,6 @@ const useTransactions = (title) => {
   // condtional statement for categories
   const categories = title === 'Income' ? incomeCategories : expenseCategories
 
-    console.log({transactionsPerType, total, categories})
-
     // specifying  a function for each transaction
     transactionsPerType.forEach((t) => {
         // find the type
